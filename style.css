@@ -98,38 +98,6 @@ margin-bottom: 20px;
     margin-top: 20px;
 }
 
-.name-input{
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-top: 15px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.greet-btn{
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: var(--btn-bg);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.greet-btn:hover{
-    background-color: var(--btn-hover);
-}
-
-.greeting-output{
-    margin-top: 15px;
-    color: var(--text-main);
-    font-size: 18px;
-    font-weight: bold;
-}
-
 .text-input{
     padding: 10px;
     border-radius: 8px;
@@ -156,6 +124,38 @@ margin-bottom: 20px;
 }
 
 .count-output{
+    margin-top: 15px;
+    color: var(--text-main);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.user-name, .user-age{
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.check-btn{
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--btn-bg);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.check-btn:hover{
+    background-color: var(--btn-hover);
+}
+
+.form-output{
     margin-top: 15px;
     color: var(--text-main);
     font-size: 16px;
