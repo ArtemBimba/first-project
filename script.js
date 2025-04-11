@@ -8,6 +8,10 @@ const ageInput = document.querySelector('.user-age');
 const checkButton = document.querySelector('.check-btn');
 const outputNameAge = document.querySelector('.form-output');
 
+const taskInput = document.querySelector('.task-input');
+const addTaskBtn = document.querySelector('.add-task-btn');
+const taskList = document.querySelector('.task-list');
+
 toggleButton.addEventListener('click', () => {
     body.classList.toggle('dark');
 })
@@ -32,4 +36,27 @@ checkButton.addEventListener('click', () =>{
     else{
         outputNameAge.innerText = `Привіт, ${name}. Тобі ${age} років.`;
     }
+})
+
+addTaskBtn.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
+
+    if (taskText === ''){
+        alert('Введи справу!')
+        return;
+    }
+
+    const li = document.createElement('li');
+    li.innerText = taskText;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = '✕';
+    deleteBtn.addEventListener('click', () => {
+        li.remove();
+    });
+
+    li.appendChild(deleteBtn);
+    taskList.appendChild(li);
+
+    taskInput.value = '';
 })

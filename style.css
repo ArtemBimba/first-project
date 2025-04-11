@@ -162,6 +162,60 @@ margin-bottom: 20px;
     font-weight: bold;
 }
 
+.task-input{
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.add-task-btn{
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--btn-bg);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-task-btn:hover{
+    background-color: var(--btn-hover);
+}
+
+.task-list{
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.task-list li{
+    background-color: var(--card-bg);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: var(--text-main);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.task-list button{
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
 @media (max-width: 600px){
     .card{
         width: 90%;
