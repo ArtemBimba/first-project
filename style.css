@@ -199,12 +199,11 @@ margin-bottom: 20px;
     margin-bottom: 10px;
     border-radius: 8px;
     color: var(--text-main);
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    word-wrap: break-word;
-    white-space: normal;
+    gap: 10px;
 }
 
 .task-list button{
@@ -214,6 +213,22 @@ margin-bottom: 20px;
     border-radius: 6px;
     padding: 4px 8px;
     cursor: pointer;
+}
+
+.task-list li.completed{
+    text-decoration: line-through;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.edit-btn{
+    background-color: rgb(131, 195, 35) !important;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    margin-right: 8px;
 }
 
 @media (max-width: 600px){
