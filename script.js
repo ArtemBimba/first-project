@@ -12,6 +12,105 @@ const taskInput = document.querySelector('.task-input');
 const addTaskBtn = document.querySelector('.add-task-btn');
 const taskList = document.querySelector('.task-list');
 
+const inputName = document.querySelector('.input-name');
+const inputPrice = document.querySelector('.input-price');
+const inputImage = document.querySelector('.input-image');
+const addProductBtn = document.querySelector('.add-product-btn');
+
+const products = [
+    {
+        name: "iPhone 13",
+        price: "$799",
+        image: "https://appleroom.ua/wa-data/public/shop/products/16/24/12416/images/27223/27223.750.png"
+    },
+    {
+        name: "MacBook Air",
+        price: "$999",
+        image: "https://www.istore.ua/upload/iblock/dae/vx1r87f6vjou28rstfvf2qxz1wqnnzk9/MRXV3_6_is.png"
+    },
+    {
+        name: "Apple Watch",
+        price: "$399",
+        image: "https://my-apple.com.ua/image/catalog/products/watch/Series-10-42mm/Rose-Gold-Aluminium-1.png"
+    },
+    {
+        name: "AirPods Pro",
+        price: "$249",
+        image: "https://grokholsky.com/uploads/products/590-590/66c9d46f19f4d-2024-08-24-03-39-11.webp"
+    },
+];
+
+addProductBtn.addEventListener('click', () => {
+    const name = inputName.value.trim();
+    const price = inputPrice.value.trim();
+    const image = inputImage.value.trim();
+
+    if(!name || !price || !image){
+        alert('Будь ласка, заповни всі поля!');
+        return;
+    }
+
+    const newProduct = {
+        name: name,
+        price: price,
+        image: image
+    };
+
+    products.push(newProduct);
+    addProductCard(newProduct);
+
+    inputName.value = '';
+    inputPrice.value = '';
+    inputImage.value = '';
+});
+
+function addProductCard(product){
+    const card = document.createElement('div');
+    card.classList.add('product-card');
+
+    const img = document.createElement('img');
+    img.src = product.image;
+    img.alt = product.name;
+    img.style.width = "100%";
+    img.style.borderRadius = "8px";
+    img.style.marginBottom = "10px";
+
+    const title = document.createElement('h3');
+    title.innerText = product.name;
+    const price = document.createElement('p');
+    price.innerText = product.price;
+
+    card.appendChild(img);
+    card.appendChild(title);
+    card.appendChild(price);
+    productList.appendChild(card);
+}
+
+const productList = document.querySelector('.product-list');
+products.forEach(product => {
+    const card = document.createElement('div');
+    card.classList.add('product-card');
+
+    const title = document.createElement('h3');
+    title.innerText = product.name;
+
+    const image = document.createElement('img');
+    image.src = product.image;
+    image.alt = product.name;
+    image.style.width = "100%";
+    image.style.borderRadius = "8px";
+    image.style.marginBottom = "10px";
+
+    const price = document.createElement('p');
+    price.innerText = product.price;
+
+    card.appendChild(image);
+    card.appendChild(title);
+    card.appendChild(price);
+
+    productList.appendChild(card);
+})
+
 let tasks = [];
 
 function loadTasks(){
