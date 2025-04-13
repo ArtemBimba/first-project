@@ -17,28 +17,41 @@ const inputPrice = document.querySelector('.input-price');
 const inputImage = document.querySelector('.input-image');
 const addProductBtn = document.querySelector('.add-product-btn');
 
-const products = [
-    {
-        name: "iPhone 13",
-        price: "$799",
-        image: "https://appleroom.ua/wa-data/public/shop/products/16/24/12416/images/27223/27223.750.png"
-    },
-    {
-        name: "MacBook Air",
-        price: "$999",
-        image: "https://www.istore.ua/upload/iblock/dae/vx1r87f6vjou28rstfvf2qxz1wqnnzk9/MRXV3_6_is.png"
-    },
-    {
-        name: "Apple Watch",
-        price: "$399",
-        image: "https://my-apple.com.ua/image/catalog/products/watch/Series-10-42mm/Rose-Gold-Aluminium-1.png"
-    },
-    {
-        name: "AirPods Pro",
-        price: "$249",
-        image: "https://grokholsky.com/uploads/products/590-590/66c9d46f19f4d-2024-08-24-03-39-11.webp"
-    },
-];
+const productList = document.querySelector('.product-list');
+
+let products = [];
+loadProductsFromStorade();
+
+if (products.length === 0){
+    products = [
+        {
+            name: "iPhone 13",
+            price: "$799",
+            image: "https://appleroom.ua/wa-data/public/shop/products/16/24/12416/images/27223/27223.750.png"
+        },
+        {
+            name: "MacBook Air",
+            price: "$999",
+            image: "https://www.istore.ua/upload/iblock/dae/vx1r87f6vjou28rstfvf2qxz1wqnnzk9/MRXV3_6_is.png"
+        },
+        {
+            name: "Apple Watch",
+            price: "$399",
+            image: "https://my-apple.com.ua/image/catalog/products/watch/Series-10-42mm/Rose-Gold-Aluminium-1.png"
+        },
+        {
+            name: "AirPods Pro",
+            price: "$249",
+            image: "https://grokholsky.com/uploads/products/590-590/66c9d46f19f4d-2024-08-24-03-39-11.webp"
+        }
+    ];
+
+    products.forEach(product => {
+        addProductCard(product);
+    });
+
+    saveProductsToStorage();
+}
 
 addProductBtn.addEventListener('click', () => {
     const name = inputName.value.trim();
@@ -58,6 +71,7 @@ addProductBtn.addEventListener('click', () => {
 
     products.push(newProduct);
     addProductCard(newProduct);
+    saveProductsToStorage();
 
     inputName.value = '';
     inputPrice.value = '';
@@ -80,36 +94,91 @@ function addProductCard(product){
     const price = document.createElement('p');
     price.innerText = product.price;
 
+    //редагувати
+    const editBtn = document.createElement('button');
+    editBtn.innerText = "✏️ Редагувати";
+    editBtn.classList.add('product-edit-btn');
+
+    editBtn.addEventListener('click', () => {
+        const nameInput = document.createElement('input');
+        nameInput.value = product.name;
+
+        const priceInput = document.createElement('input');
+        priceInput.value = product.price;
+
+        const imageInput = document.createElement('input');
+        imageInput.value = product.image;
+
+        const saveBtn = document.createElement('button');
+        saveBtn.innerText = "💾 Зберегти";
+        saveBtn.classList.add('product-edit-btn');
+
+        card.innerHTML = '';
+        card.appendChild(nameInput);
+        card.appendChild(priceInput);
+        card.appendChild(imageInput);
+        card.appendChild(saveBtn);
+
+        saveBtn.addEventListener('click', () => {
+            const newName = nameInput.value.trim();
+            const newPrice = priceInput.value.trim();
+            const newImage = imageInput.value.trim();
+
+            if(!newName || !newPrice || !newImage){
+                alert("Заповни всі поля!");
+                return;
+            }
+
+            product.name = newName;
+            product.price = newPrice;
+            product.image = newImage;
+            saveProductsToStorage();
+
+            card.remove();
+            addProductCard(product);
+        });
+    });
+
+    //кнопка видалити
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = "❌ Видалити";
+    deleteBtn.classList.add('product-delete-btn');
+
+    deleteBtn.addEventListener('click', () => {
+        card.remove();
+        const index = products.indexOf(product);
+        if(index !== -1){
+            products.splice(index, 1);
+            saveProductsToStorage();
+        }
+    });
+
     card.appendChild(img);
     card.appendChild(title);
     card.appendChild(price);
+    card.appendChild(editBtn);       
+    card.appendChild(deleteBtn);
+
     productList.appendChild(card);
 }
 
-const productList = document.querySelector('.product-list');
-products.forEach(product => {
-    const card = document.createElement('div');
-    card.classList.add('product-card');
+function saveProductsToStorage(){
+    const json = JSON.stringify(products);
+    localStorage.setItem('products', json);
+}
 
-    const title = document.createElement('h3');
-    title.innerText = product.name;
+function loadProductsFromStorade(){
+    const json = localStorage.getItem('products');
 
-    const image = document.createElement('img');
-    image.src = product.image;
-    image.alt = product.name;
-    image.style.width = "100%";
-    image.style.borderRadius = "8px";
-    image.style.marginBottom = "10px";
+    if(!json) return;
 
-    const price = document.createElement('p');
-    price.innerText = product.price;
+    const savedProducts = JSON.parse(json);
 
-    card.appendChild(image);
-    card.appendChild(title);
-    card.appendChild(price);
-
-    productList.appendChild(card);
-})
+    savedProducts.forEach(product => {
+        products.push(product);
+        addProductCard(product);
+    })
+}
 
 let tasks = [];
 
@@ -252,3 +321,4 @@ function addTask(id, taskText, completed = false){
 }
 
 loadTasks();
+//loadProductsFromStorade();
